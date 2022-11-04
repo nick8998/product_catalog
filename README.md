@@ -1,25 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version - 3.1.2
 
-Things you may want to cover:
+* Rails version - 7.0.4
 
-* Ruby version
+* Database - PostgreSQL
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# product_catalog
+1) git clone https://github.com/nick8998/product_catalog.git
+2) bundle install
+3) cp config/database.yml.sample config/database.yml
+4) rails db:create db:migrate db:seed
+5) rails s (if use local)
