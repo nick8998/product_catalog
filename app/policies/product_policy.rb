@@ -25,4 +25,8 @@ class ProductPolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  def favorite?
+    user.present?
+  end
 end

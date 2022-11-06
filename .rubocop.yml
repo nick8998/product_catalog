@@ -1,0 +1,23 @@
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  RubyInterpreters:
+    - ruby
+    - rake
+    - jruby
+  Include:
+    - '**/*.rb'
+  Exclude:
+    - 'config/**/*.rb'
+    - 'db/**/*.rb'
+    - 'bin/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'app/channels/application_cable/*.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength: 
+  Exclude:
+    - 'spec/**/*.rb'

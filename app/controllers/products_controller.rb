@@ -49,6 +49,7 @@ class ProductsController < ApplicationController
   end
 
   def add_to_favorite
+    authorize :product, :favorite?
     favorite_p = new_favorite(@product)
     if favorite_p.save
       render json: favorite_p
@@ -58,6 +59,7 @@ class ProductsController < ApplicationController
   end
 
   def delete_from_favorite
+    authorize :product, :favorite?
     @product.favorite_products.delete(find_favorite(@product).first.id) if find_favorite(@product).present?
     if @product.errors.any?
       render json: { status: :unprocessable_entity }, status: :unprocessable_entity
@@ -67,6 +69,7 @@ class ProductsController < ApplicationController
   end
 
   def sort_by
+    authorize @products, :index?
     case params[:sort]
     when 'hand'
       render json: @products.order_by_hand

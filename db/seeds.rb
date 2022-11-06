@@ -18,4 +18,3 @@ users = User.create!([
 
 #Product.destroy_all
 #User.destroy_all
-
