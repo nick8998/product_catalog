@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe ProductsController, type: :controller do
+  describe 'Non autheticated user' do
+    it 'returns 302 status' do
+      get :index
+      expect(response.code).to eq '302'
+    end
+  end
+
   describe 'Autheticated admin' do
     let(:user) { create(:user, admin: true) }
     let(:product) { create(:product) }
@@ -8,6 +15,7 @@ RSpec.describe ProductsController, type: :controller do
 
     describe 'GET #index' do
       it 'returns 200 status' do
+        get :index
         expect(response).to be_successful
       end
     end
@@ -84,10 +92,12 @@ RSpec.describe ProductsController, type: :controller do
   describe 'Autheticated user' do
     let(:user) { create(:user) }
     let(:product) { create(:product) }
+    let(:create_favorite) { post :add_to_favorite, params: { id: product.id } }
     before { login(user) }
 
     describe 'GET #index' do
       it 'returns 200 status' do
+        get :index
         expect(response).to be_successful
       end
     end
@@ -105,6 +115,19 @@ RSpec.describe ProductsController, type: :controller do
 
       it 'returns 302 status' do
         expect(response.code).to eq '302'
+      end
+    end
+
+    describe 'POST #add_to_favorite' do
+      it 'create product to favorite list' do
+        expect { create_favorite }.to change(FavoriteProduct.all, :count).by(1)
+      end
+    end
+
+    describe 'DELETE #delete_from_favorite' do
+      before { create_favorite }
+      it 'delete product from favorite list' do
+        expect { delete :delete_from_favorite, params: { id: product.id } }.to change(FavoriteProduct.all, :count).by(-1)
       end
     end
   end
